@@ -1,25 +1,10 @@
-name: Publicar en Zenodo Sandbox
-
-on:
-  # Ejecutar manualmente o al publicar un release
-  workflow_dispatch:
-  release:
-    types: [published]
-
-jobs:
-  upload:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Crear borrador / publicar en Zenodo Sandbox
-        uses: zenodraft/action@0.13.3       # última versión al 2025-07-07 :contentReference[oaicite:1]{index=1}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_TOKEN }}
-        with:
-          sandbox: true           # ← ¡clave! usa sandbox.zenodo.org
-          publish: true           # publica inmediatamente; poné false si querés revisar primero
-          metadata: .zenodo.json  # archivo de metadata
-          compression: zip        # default
-          # concept: 1234567      # (opcional) ID de concepto para versionar sobre un registro ya existente
+{
+  "title": "Demo integración GitHub → Zenodo sandbox",
+  "upload_type": "software",
+  "description": "Prueba de automatización con GitHub Actions para MetaDocencia.",
+  "creators": [
+    { "name": "Vazano, Irene", "affiliation": "MetaDocencia" }
+  ],
+  "license": "mit",
+  "version": "0.0.1"
+}
