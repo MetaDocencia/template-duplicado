@@ -1,0 +1,16 @@
+      - name: Publicar en Zenodo (producción)
+        id: zenodo
+        uses: zenodraft/action@0.13.3  # Última versión al 2025‑07‑07
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_TOKEN }}  # ➜ Agregar este secret en el repo/org
+        with:
+          sandbox: false          # Producción
+          publish: ${{ github.event.inputs.upload_as_draft != 'true' }}
+          metadata: .zenodo.json   # Ruta a la metadata
+          compression: zip
+          # concept: 1234567       # (opcional) Fijar concept DOI para nuevas versiones
+
+      - name: Mostrar DOI generado
+        if: steps.zenodo.outputs.published == 'true'
+        run: echo "DOI: ${{ steps.zenodo.outputs.doi }}"
